@@ -1,9 +1,10 @@
+syntax = "proto3";
 
-import "google/protobuf/any.proto"; // Per supportare espressioni polimorfiche
+import "google/protobuf/any.proto"; 
 
-import "./position.proto"; // Per supportare la posizione all'interno del codice sorgente
+import "position.proto"; 
 
-// Base message for all expressions
+
 message Expression {
   Position position = 1;
   oneof expr {
@@ -23,7 +24,7 @@ message Expression {
     InputExpression inputExpression = 15;
     OutputExpression outputExpression = 16;
     VarReferenceExpression varReferenceExpression = 17;
-    ParenthesysExpression parenthesysExpression = 18;
+    ParenthesisExpression parenthesysExpression = 18;
     FunctionCallExpression functionCallExpression = 19;
     ObjectPropertyReferenceExpression objectPropertyReferenceExpression = 20;
     ObjectMethodCallExpression objectMethodCallExpression = 21;
@@ -47,7 +48,7 @@ message BoolLit {
 }
 
 message ListLiteralExpression {
-  repeated google.protobuf.Any value = 1; // Use Any to support a list of expressions
+  repeated google.protobuf.Any value = 1; 
 }
 
 message BinaryExpression {
@@ -103,7 +104,7 @@ message VarReferenceExpression {
   string name = 1;
 }
 
-message ParenthesysExpression {
+message ParenthesisExpression {
   Expression value = 1;
 }
 
@@ -123,7 +124,7 @@ message ObjectMethodCallExpression {
   repeated Expression parameters = 3;
 }
 
-// Enum definitions for MathOperand and LogicOperand
+
 enum MathOperand {
   PLUS = 0;
   MINUS = 1;

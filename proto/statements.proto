@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-import "./expressions.proto";
-import "./position.proto";
+import "expressions.proto";
+import "position.proto";
 
 enum VariableType {
   VARIABLE = 0;
@@ -13,7 +13,7 @@ message VariableValueType {
   string name = 1;
 }
 
-// Statements and Expressions
+
 message Statement {
   oneof stmt {
     AssignmentStatement assignmentStatement = 1;
@@ -22,11 +22,12 @@ message Statement {
     IfDefinitionStatement ifDefinitionStatement = 4;
     ObjectPropertyAssignmentStatement objectPropertyAssignmentStatement = 5;
     ReturnStatement returnStatement = 6;
-    VarDeclarationStatement varDeclarationStatement = 7;
+    VariableDeclarationStatement varDeclarationStatement = 7;
     WhileDefinitionStatement whileDefinitionStatement = 8;
     ForDefinitionStatement forDefinitionStatement = 9;
   }
-  Position position = 9;
+
+  Position position = 10;
 }
 
 message AssignmentStatement {
@@ -53,7 +54,7 @@ message PropertyDeclaration {
   VariableType varType = 1;
   string name = 2;
   VariableValueType valueType = 3;
-  Expression value = 4; // Optional, how to handle this depends on your Expression definition
+  Expression value = 4;
 }
 
 message FunctionDefinitionStatement {
@@ -75,9 +76,9 @@ message ThisConstructorDefinition {
   repeated Expression parameters = 1;
 }
 
-// Other statements follow a similar pattern...
 
-// Helper Types
+
+
 message Parameter {
   string name = 1;
   ParameterType type = 2;
@@ -85,42 +86,120 @@ message Parameter {
 }
 
 enum ParameterType {
-  THIS = 0;
-  SUPER = 1;
-  TYPE = 2;
+  TYPE = 0;
+  THIS = 1;
+  SUPER = 2;
+}
+
+message ExpressionDefinitionStatement {
+  Expression value = 1;
+  Position position = 2;
+}
+
+message IfDefinitionStatement {
+  IfBlock ifBlock = 1;
+  repeated IfBlock elseIfBlocks = 2;
+  IfBlock elseBlock = 3;
+  Position position = 4;
+}
+
+enum BlockType {
+  IF_BLOCK = 0;
+  ELSE_IF_BLOCK = 1;
+  ELSE_BLOCK = 2;
+}
+
+message IfBlock {
+  Expression condition = 1;
+  repeated Statement statements = 2;
+  BlockType blockType = 3;
+  Position position = 4;
+}
+
+message WhileDefinitionStatement {
+  Expression condition = 1;
+  repeated Statement statements = 2;
+  Position position = 3;
+}
+
+message ForInitOrIncrementStatement {
+  oneof init_or_increment {
+    VarDeclarationForStatement varDeclarationForStatement = 1;
+    AssignmentForStatement assignmentForStatement = 2;
+    ExpressionForStatement expressionForStatement = 3;
+  }
+  Position position = 4;
+}
+
+message VarDeclarationForStatement {
+  VariableType varType = 1;
+  string name = 2;
+  VariableValueType valueType = 3;
+  Expression value = 4;
+  Position position = 5;
+}
+
+message AssignmentForStatement {
+  string name = 1;
+  Expression value = 2;
+  Position position = 3;
+}
+
+message ExpressionForStatement {
+  Expression value = 1;
+  Position position = 2;
 }
 
 message ForDefinitionStatement {
-    ForCondition forCondition = 1; // Utilizzo di un campo "oneof" per gestire le sottoclassi di ForCondition
-    repeated Statement statements = 2;
-    Position position = 3;
+  ForCondition forCondition = 1;
+  repeated Statement statements = 2;
+  Position position = 3;
+}
+
+message ForCondition {
+  oneof condition {
+    StandardForCondition standardForCondition = 1;
+    ForEachCondition forEachCondition = 2;
   }
-  
-  // Definizione base per ForCondition con utilizzo di "oneof" per le diverse condizioni
-  message ForCondition {
-    oneof condition {
-      StandardForCondition standardForCondition = 1;
-      ForEachCondition forEachCondition = 2;
-    }
-    Position position = 3;
-  }
-  
-  message StandardForCondition {
-    ForInitOrIncrementStatement initStatement = 1;
-    Expression controlExpression = 2;
-    ForInitOrIncrementStatement incrementStatement = 3;
-    Position position = 4;
-  }
-  
-  message ForEachCondition {
-    ItemDefinition itemDefinition = 1;
-    Expression expression = 2;
-    Position position = 3;
-  }
-  
-  message ItemDefinition {
-    VariableType varType = 1;
-    string name = 2;
-    VariableValueType valueType = 3; // Optional, quindi può essere omesso se non presente
-    Position position = 4;
-  }
+  Position position = 3;
+}
+
+message StandardForCondition {
+  ForInitOrIncrementStatement initStatement = 1;
+  Expression controlExpression = 2;
+  ForInitOrIncrementStatement incrementStatement = 3;
+  Position position = 4;
+}
+
+message ForEachCondition {
+  ItemDefinition itemDefinition = 1;
+  Expression expression = 2;
+  Position position = 3;
+}
+
+message ItemDefinition {
+  VariableType varType = 1;
+  string name = 2;
+  VariableValueType valueType = 3;
+  Position position = 4;
+}
+
+message ObjectPropertyAssignmentStatement {
+  string objectName = 1;
+  string propertyName = 2;
+  Expression value = 3;
+  Position position = 4;
+}
+
+message ReturnStatement {
+  Expression value = 1;
+  Position position = 2;
+}
+
+message VariableDeclarationStatement {
+  VariableType varType = 1;
+  string name = 2;
+  VariableValueType valueType = 3;
+  Expression value = 4;
+  Position position = 5;
+}

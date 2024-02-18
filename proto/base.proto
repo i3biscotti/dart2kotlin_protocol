@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-import "./position.proto";
-import "./expressions.proto";
-import "./statements.proto";
+import "position.proto";
+import "expressions.proto";
+import "statements.proto";
 
 // Base message for AST object, using the "oneof" feature to represent the sealed class behavior
 message AstObject {
@@ -27,7 +27,7 @@ message AstObject {
     InputExpression inputExpression = 18;
     OutputExpression outputExpression = 19;
     VarReferenceExpression varReferenceExpression = 20;
-    ParenthesysExpression parenthesysExpression = 21;
+    ParenthesisExpression parenthesisExpression = 21;
     FunctionCallExpression functionCallExpression = 22;
     ObjectPropertyReferenceExpression objectPropertyReferenceExpression = 23;
     ObjectMethodCallExpression objectMethodCallExpression = 24;
@@ -38,7 +38,7 @@ message AstObject {
     IfDefinitionStatement ifDefinitionStatement = 29;
     ObjectPropertyAssignmentStatement objectPropertyAssignmentStatement = 30;
     ReturnStatement returnStatement = 31;
-    VarDeclarationStatement varDeclarationStatement = 32;
+    VariableDeclarationStatement varDeclarationStatement = 32;
     WhileDefinitionStatement whileDefinitionStatement = 33;
     ForDefinitionStatement forDefinitionStatement = 34;
     ProgramFile programFile = 35;
@@ -68,7 +68,7 @@ message Node {
     InputExpression inputExpression = 16;
     OutputExpression outputExpression = 17;
     VarReferenceExpression varReferenceExpression = 18;
-    ParenthesysExpression parenthesysExpression = 19;
+    ParenthesisExpression parenthesisExpression = 19;
     FunctionCallExpression functionCallExpression = 20;
     ObjectPropertyReferenceExpression objectPropertyReferenceExpression = 21;
     ObjectMethodCallExpression objectMethodCallExpression = 22;
@@ -79,7 +79,7 @@ message Node {
     IfDefinitionStatement ifDefinitionStatement = 27;
     ObjectPropertyAssignmentStatement objectPropertyAssignmentStatement = 28;
     ReturnStatement returnStatement = 29;
-    VarDeclarationStatement varDeclarationStatement = 30;
+    VariableDeclarationStatement varDeclarationStatement = 30;
     WhileDefinitionStatement whileDefinitionStatement = 31;
     ForDefinitionStatement forDefinitionStatement = 32;
     ProgramFile programFile = 33;
