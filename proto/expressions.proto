@@ -1,0 +1,144 @@
+
+import "google/protobuf/any.proto"; // Per supportare espressioni polimorfiche
+
+import "./position.proto"; // Per supportare la posizione all'interno del codice sorgente
+
+// Base message for all expressions
+message Expression {
+  Position position = 1;
+  oneof expr {
+    IntLit intLit = 2;
+    DecLit decLit = 3;
+    StringLit stringLit = 4;
+    BoolLit boolLit = 5;
+    ListLiteralExpression listLiteralExpression = 6;
+    BinaryMathExpression binaryMathExpression = 7;
+    BinaryLogicExpression binaryLogicExpression = 8;
+    UnaryMathExpression unaryMathExpression = 9;
+    UnaryLogicExpression unaryLogicExpression = 10;
+    PreIncrementExpression preIncrementExpression = 11;
+    PostIncrementExpression postIncrementExpression = 12;
+    PreDecrementExpression preDecrementExpression = 13;
+    PostDecrementExpression postDecrementExpression = 14;
+    InputExpression inputExpression = 15;
+    OutputExpression outputExpression = 16;
+    VarReferenceExpression varReferenceExpression = 17;
+    ParenthesysExpression parenthesysExpression = 18;
+    FunctionCallExpression functionCallExpression = 19;
+    ObjectPropertyReferenceExpression objectPropertyReferenceExpression = 20;
+    ObjectMethodCallExpression objectMethodCallExpression = 21;
+  }
+}
+
+message IntLit {
+  string value = 1;
+}
+
+message DecLit {
+  string value = 1;
+}
+
+message StringLit {
+  string value = 1;
+}
+
+message BoolLit {
+  string value = 1;
+}
+
+message ListLiteralExpression {
+  repeated google.protobuf.Any value = 1; // Use Any to support a list of expressions
+}
+
+message BinaryExpression {
+  Expression left = 1;
+  Expression right = 2;
+}
+
+message BinaryMathExpression {
+  Expression left = 1;
+  Expression right = 2;
+  MathOperand operand = 3;
+}
+
+message BinaryLogicExpression {
+  Expression left = 1;
+  Expression right = 2;
+  LogicOperand operand = 3;
+}
+
+message UnaryMathExpression {
+  Expression value = 1;
+  MathOperand operand = 2;
+}
+
+message UnaryLogicExpression {
+  Expression value = 1;
+  LogicOperand operand = 2;
+}
+
+message PreIncrementExpression {
+  string name = 1;
+}
+
+message PostIncrementExpression {
+  string name = 1;
+}
+
+message PreDecrementExpression {
+  string name = 1;
+}
+
+message PostDecrementExpression {
+  string name = 1;
+}
+
+message InputExpression {}
+
+message OutputExpression {
+  Expression value = 1;
+}
+
+message VarReferenceExpression {
+  string name = 1;
+}
+
+message ParenthesysExpression {
+  Expression value = 1;
+}
+
+message FunctionCallExpression {
+  string name = 1;
+  repeated Expression parameters = 2;
+}
+
+message ObjectPropertyReferenceExpression {
+  string objectName = 1;
+  string propertyName = 2;
+}
+
+message ObjectMethodCallExpression {
+  string objectName = 1;
+  string methodName = 2;
+  repeated Expression parameters = 3;
+}
+
+// Enum definitions for MathOperand and LogicOperand
+enum MathOperand {
+  PLUS = 0;
+  MINUS = 1;
+  TIMES = 2;
+  DIVISION = 3;
+}
+
+enum LogicOperand {
+  AND = 0;
+  OR = 1;
+  NOT = 2;
+  EQUAL = 3;
+  LESS_THAN = 4;
+  LESS_THAN_OR_EQUAL = 5;
+  GREATER_THAN = 6;
+  GREATER_THAN_OR_EQUAL = 7;
+  NOT_EQUAL = 8;
+}

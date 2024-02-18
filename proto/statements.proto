@@ -1,0 +1,126 @@
+syntax = "proto3";
+
+import "./expressions.proto";
+import "./position.proto";
+
+enum VariableType {
+  VARIABLE = 0;
+  IMMUTABLE = 1;
+  CONSTANT = 2;
+}
+
+message VariableValueType {
+  string name = 1;
+}
+
+// Statements and Expressions
+message Statement {
+  oneof stmt {
+    AssignmentStatement assignmentStatement = 1;
+    ClassDefinitionStatement classDefinitionStatement = 2;
+    ExpressionDefinitionStatement expressionDefinitionStatement = 3;
+    IfDefinitionStatement ifDefinitionStatement = 4;
+    ObjectPropertyAssignmentStatement objectPropertyAssignmentStatement = 5;
+    ReturnStatement returnStatement = 6;
+    VarDeclarationStatement varDeclarationStatement = 7;
+    WhileDefinitionStatement whileDefinitionStatement = 8;
+    ForDefinitionStatement forDefinitionStatement = 9;
+  }
+  Position position = 9;
+}
+
+message AssignmentStatement {
+  string name = 1;
+  Expression value = 2;
+}
+
+enum  EncapsulationType {
+  PUBLIC = 0;
+  PRIVATE = 1;
+};
+
+message ClassDefinitionStatement {
+  EncapsulationType encapsulation = 1;
+  string name = 2;
+  string parentName = 3;
+  repeated PropertyDeclaration properties = 4;
+  repeated ConstructorDefinitionStatement constructors = 5;
+  repeated FunctionDefinitionStatement methods = 6;
+  VariableValueType parentClassType = 7;
+}
+
+message PropertyDeclaration {
+  VariableType varType = 1;
+  string name = 2;
+  VariableValueType valueType = 3;
+  Expression value = 4; // Optional, how to handle this depends on your Expression definition
+}
+
+message FunctionDefinitionStatement {
+  string name = 1;
+  repeated Parameter parameters = 2;
+  VariableValueType returnType = 3;
+  repeated Statement statements = 4;
+}
+
+message ConstructorDefinitionStatement {
+  string className = 1;
+  string constructorName = 2;
+  repeated Parameter parameters = 3;
+  repeated Statement body = 4;
+  ThisConstructorDefinition thisConstructor = 5;
+}
+
+message ThisConstructorDefinition {
+  repeated Expression parameters = 1;
+}
+
+// Other statements follow a similar pattern...
+
+// Helper Types
+message Parameter {
+  string name = 1;
+  ParameterType type = 2;
+  VariableValueType valueType = 3;
+}
+
+enum ParameterType {
+  THIS = 0;
+  SUPER = 1;
+  TYPE = 2;
+}
+
+message ForDefinitionStatement {
+    ForCondition forCondition = 1; // Utilizzo di un campo "oneof" per gestire le sottoclassi di ForCondition
+    repeated Statement statements = 2;
+    Position position = 3;
+  }
+  
+  // Definizione base per ForCondition con utilizzo di "oneof" per le diverse condizioni
+  message ForCondition {
+    oneof condition {
+      StandardForCondition standardForCondition = 1;
+      ForEachCondition forEachCondition = 2;
+    }
+    Position position = 3;
+  }
+  
+  message StandardForCondition {
+    ForInitOrIncrementStatement initStatement = 1;
+    Expression controlExpression = 2;
+    ForInitOrIncrementStatement incrementStatement = 3;
+    Position position = 4;
+  }
+  
+  message ForEachCondition {
+    ItemDefinition itemDefinition = 1;
+    Expression expression = 2;
+    Position position = 3;
+  }
+  
+  message ItemDefinition {
+    VariableType varType = 1;
+    string name = 2;
+    VariableValueType valueType = 3; // Optional, quindi può essere omesso se non presente
+    Position position = 4;
+  }

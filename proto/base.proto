@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+import "./position.proto";
+import "./expressions.proto";
+import "./statements.proto";
+
+// Base message for AST object, using the "oneof" feature to represent the sealed class behavior
+message AstObject {
+  oneof type {
+    Position position = 1;
+    Point point = 2;
+    Node node = 3;
+    Expression expression = 4;
+    IntLit intLit = 5;
+    DecLit decLit = 6;
+    StringLit stringLit = 7;
+    BoolLit boolLit = 8;
+    ListLiteralExpression listLiteralExpression = 9;
+    BinaryMathExpression binaryMathExpression = 10;
+    BinaryLogicExpression binaryLogicExpression = 11;
+    UnaryMathExpression unaryMathExpression = 12;
+    UnaryLogicExpression unaryLogicExpression = 13;
+    PreIncrementExpression preIncrementExpression = 14;
+    PostIncrementExpression postIncrementExpression = 15;
+    PreDecrementExpression preDecrementExpression = 16;
+    PostDecrementExpression postDecrementExpression = 17;
+    InputExpression inputExpression = 18;
+    OutputExpression outputExpression = 19;
+    VarReferenceExpression varReferenceExpression = 20;
+    ParenthesysExpression parenthesysExpression = 21;
+    FunctionCallExpression functionCallExpression = 22;
+    ObjectPropertyReferenceExpression objectPropertyReferenceExpression = 23;
+    ObjectMethodCallExpression objectMethodCallExpression = 24;
+    Statement statement = 25;
+    AssignmentStatement assignmentStatement = 26;
+    ClassDefinitionStatement classDefinitionStatement = 27;
+    ExpressionDefinitionStatement expressionDefinitionStatement = 28;
+    IfDefinitionStatement ifDefinitionStatement = 29;
+    ObjectPropertyAssignmentStatement objectPropertyAssignmentStatement = 30;
+    ReturnStatement returnStatement = 31;
+    VarDeclarationStatement varDeclarationStatement = 32;
+    WhileDefinitionStatement whileDefinitionStatement = 33;
+    ForDefinitionStatement forDefinitionStatement = 34;
+    ProgramFile programFile = 35;
+  }
+}
+
+
+// Node, Expression, and Statement will be represented as wrappers with a "oneof" for their specific types
+message Node {
+  Position position = 1; // Nullable in Kotlin, but proto3 does not have null. An unset message acts as null.
+
+  oneof subtype {
+    Expression expression = 2;
+    IntLit intLit = 3;
+    DecLit decLit = 4;
+    StringLit stringLit = 5;
+    BoolLit boolLit = 6;
+    ListLiteralExpression listLiteralExpression = 7;
+    BinaryMathExpression binaryMathExpression = 8;
+    BinaryLogicExpression binaryLogicExpression = 9;
+    UnaryMathExpression unaryMathExpression = 10;
+    UnaryLogicExpression unaryLogicExpression = 11;
+    PreIncrementExpression preIncrementExpression = 12;
+    PostIncrementExpression postIncrementExpression = 13;
+    PreDecrementExpression preDecrementExpression = 14;
+    PostDecrementExpression postDecrementExpression = 15;
+    InputExpression inputExpression = 16;
+    OutputExpression outputExpression = 17;
+    VarReferenceExpression varReferenceExpression = 18;
+    ParenthesysExpression parenthesysExpression = 19;
+    FunctionCallExpression functionCallExpression = 20;
+    ObjectPropertyReferenceExpression objectPropertyReferenceExpression = 21;
+    ObjectMethodCallExpression objectMethodCallExpression = 22;
+    Statement statement = 23;
+    AssignmentStatement assignmentStatement = 24;
+    ClassDefinitionStatement classDefinitionStatement = 25;
+    ExpressionDefinitionStatement expressionDefinitionStatement = 26;
+    IfDefinitionStatement ifDefinitionStatement = 27;
+    ObjectPropertyAssignmentStatement objectPropertyAssignmentStatement = 28;
+    ReturnStatement returnStatement = 29;
+    VarDeclarationStatement varDeclarationStatement = 30;
+    WhileDefinitionStatement whileDefinitionStatement = 31;
+    ForDefinitionStatement forDefinitionStatement = 32;
+    ProgramFile programFile = 33;
+  }
+}
+
+message ProgramFile {
+  repeated Statement lines = 1; // Lists in Kotlin are represented as repeated fields in proto3
+  Position position = 2;
+}
+
+
