@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package protocol;
 
-import "protocol/position.proto";
-import "protocol/statements.proto";
-import "protocol/expressions.proto";
+import "position.proto";
+import "statements.proto";
+import "expressions.proto";
 
 // Base message for AST object, using the "oneof" feature to represent the sealed class behavior
 message AstObject {

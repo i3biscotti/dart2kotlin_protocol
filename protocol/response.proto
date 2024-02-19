@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package protocol;
 
-import "protocol/base.proto";
-import "protocol/position.proto";
+import "base.proto";
+import "position.proto";
 
 message AstResponse{
   ProgramFile program = 1;

@@ -2,12 +2,12 @@ syntax = "proto3";
 
 package protocol;
 
-import "protocol/base.proto";
+import "base.proto";
 
 message AstRequest{
     string code = 1;
 }
 
 message TranspileRequest{
-    ProgramFile program = 1;
+    protocol.ProgramFile program = 1;
 }

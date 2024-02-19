@@ -4,7 +4,7 @@ package protocol;
 
 import "google/protobuf/any.proto";
 
-import "protocol/position.proto";
+import "position.proto";
 
 message Expression {
   oneof expr {
