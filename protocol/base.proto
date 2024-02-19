@@ -20,6 +20,10 @@ message Node {
     Expression expression = 1;
     Statement statement = 2;
     ProgramFile programFile = 3;
+    IfBlock ifBlock = 4;
+    ForCondition forCondition = 5;
+    ItemDefinition itemDefinition = 6;
+    Parameter parameter = 7;
   }
 }
 
