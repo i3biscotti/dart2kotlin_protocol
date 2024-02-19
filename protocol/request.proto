@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-import "base.proto";
+package protocol;
+
+import "protocol/base.proto";
 
 message AstRequest{
     string code = 1;

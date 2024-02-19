@@ -1,7 +1,9 @@
 syntax = "proto3";
 
-import "expressions.proto";
-import "position.proto";
+package protocol;
+
+import "protocol/expressions.proto";
+import "protocol/position.proto";
 
 enum VariableType {
   VARIABLE = 0;

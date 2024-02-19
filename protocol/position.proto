@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package protocol;
+
 message Position {
     Point start = 1;
     Point end = 2;
