@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+import 'base.proto';
+import 'position.proto';
+
+message AstResponse{
+  ProgramFile program = 1;
+  repeated LanguageError errors = 2;
+}
+
+message LanguageError{
+  string message = 1;
+  Point position = 2;
+}
+
+message TranspileResponse{
+  string code = 1;
+  repeated LanguageError errors = 2;
+}

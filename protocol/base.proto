@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "position.proto";
+import "expressions.proto";
+import "statements.proto";
+
+// Base message for AST object, using the "oneof" feature to represent the sealed class behavior
+message AstObject {
+  oneof type {
+    Position position = 1;
+    Point point = 2;
+    Node node = 3;
+  }
+}
+
+
+// Node, Expression, and Statement will be represented as wrappers with a "oneof" for their specific types
+message Node {
+  oneof subtype {
+    Expression expression = 1;
+    Statement statement = 2;
+    ProgramFile programFile = 3;
+  }
+}
+
+message ProgramFile {
+  repeated Statement lines = 1; // Lists in Kotlin are represented as repeated fields in proto3
+  Position position = 2;
+}
+
+

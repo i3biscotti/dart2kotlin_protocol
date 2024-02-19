@@ -27,12 +27,12 @@ message Statement {
     ForDefinitionStatement forDefinitionStatement = 9;
   }
 
-  Position position = 10;
 }
 
 message AssignmentStatement {
   string name = 1;
   Expression value = 2;
+  Position position = 3;
 }
 
 enum  EncapsulationType {
@@ -48,6 +48,7 @@ message ClassDefinitionStatement {
   repeated ConstructorDefinitionStatement constructors = 5;
   repeated FunctionDefinitionStatement methods = 6;
   VariableValueType parentClassType = 7;
+  Position position = 8;
 }
 
 message PropertyDeclaration {
@@ -62,6 +63,7 @@ message FunctionDefinitionStatement {
   repeated Parameter parameters = 2;
   VariableValueType returnType = 3;
   repeated Statement statements = 4;
+  Position position = 5;
 }
 
 message ConstructorDefinitionStatement {
@@ -70,14 +72,12 @@ message ConstructorDefinitionStatement {
   repeated Parameter parameters = 3;
   repeated Statement body = 4;
   ThisConstructorDefinition thisConstructor = 5;
+  Position position = 6;
 }
 
 message ThisConstructorDefinition {
   repeated Expression parameters = 1;
 }
-
-
-
 
 message Parameter {
   string name = 1;
@@ -128,7 +128,6 @@ message ForInitOrIncrementStatement {
     AssignmentForStatement assignmentForStatement = 2;
     ExpressionForStatement expressionForStatement = 3;
   }
-  Position position = 4;
 }
 
 message VarDeclarationForStatement {
@@ -161,7 +160,6 @@ message ForCondition {
     StandardForCondition standardForCondition = 1;
     ForEachCondition forEachCondition = 2;
   }
-  Position position = 3;
 }
 
 message StandardForCondition {

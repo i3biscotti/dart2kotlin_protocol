@@ -1,12 +1,11 @@
 syntax = "proto3";
 
-import "google/protobuf/any.proto"; 
+import "google/protobuf/any.proto";
 
-import "position.proto"; 
+import "position.proto";
 
 
 message Expression {
-  Position position = 1;
   oneof expr {
     IntLit intLit = 2;
     DecLit decLit = 3;
@@ -33,22 +32,27 @@ message Expression {
 
 message IntLit {
   string value = 1;
+  Position position = 2;
 }
 
 message DecLit {
   string value = 1;
+  Position position = 2;
 }
 
 message StringLit {
   string value = 1;
+  Position position = 2;
 }
 
 message BoolLit {
   string value = 1;
+  Position position = 2;
 }
 
 message ListLiteralExpression {
-  repeated google.protobuf.Any value = 1; 
+  repeated google.protobuf.Any value = 1;
+  Position position = 2;
 }
 
 message BinaryExpression {
@@ -60,68 +64,84 @@ message BinaryMathExpression {
   Expression left = 1;
   Expression right = 2;
   MathOperand operand = 3;
+  Position position = 4;
 }
 
 message BinaryLogicExpression {
   Expression left = 1;
   Expression right = 2;
   LogicOperand operand = 3;
+  Position position = 4;
 }
 
 message UnaryMathExpression {
   Expression value = 1;
   MathOperand operand = 2;
+  Position position = 3;
 }
 
 message UnaryLogicExpression {
   Expression value = 1;
   LogicOperand operand = 2;
+  Position position = 4;
 }
 
 message PreIncrementExpression {
   string name = 1;
+  Position position = 2;
 }
 
 message PostIncrementExpression {
   string name = 1;
+  Position position = 2;
 }
 
 message PreDecrementExpression {
   string name = 1;
+  Position position = 2;
 }
 
 message PostDecrementExpression {
   string name = 1;
+  Position position = 2;
 }
 
-message InputExpression {}
+message InputExpression {
+  Position position = 2;
+}
 
 message OutputExpression {
   Expression value = 1;
+  Position position = 2;
 }
 
 message VarReferenceExpression {
   string name = 1;
+  Position position = 2;
 }
 
 message ParenthesisExpression {
   Expression value = 1;
+  Position position = 2;
 }
 
 message FunctionCallExpression {
   string name = 1;
   repeated Expression parameters = 2;
+  Position position = 3;
 }
 
 message ObjectPropertyReferenceExpression {
   string objectName = 1;
   string propertyName = 2;
+  Position position = 3;
 }
 
 message ObjectMethodCallExpression {
   string objectName = 1;
   string methodName = 2;
   repeated Expression parameters = 3;
+  Position position = 4;
 }
 
 
