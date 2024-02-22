@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package protocol;
 
-import "google/protobuf/any.proto";
-
 import "position.proto";
 
 message Expression {
@@ -52,7 +50,7 @@ message BoolLit {
 }
 
 message ListLiteralExpression {
-  repeated google.protobuf.Any value = 1;
+  repeated Expression value = 1;
   Position position = 2;
 }
 
