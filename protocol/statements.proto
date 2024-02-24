@@ -6,9 +6,10 @@ import "expressions.proto";
 import "position.proto";
 
 enum VariableType {
-  VARIABLE = 0;
-  IMMUTABLE = 1;
-  CONSTANT = 2;
+  TYPE = 0;
+  VARIABLE = 1;
+  IMMUTABLE = 2;
+  CONSTANT = 3;
 }
 
 message VariableValueType {
@@ -46,18 +47,11 @@ message ClassDefinitionStatement {
   EncapsulationType encapsulation = 1;
   string name = 2;
   string parentName = 3;
-  repeated PropertyDeclaration properties = 4;
+  repeated VariableDeclarationStatement properties = 4;
   repeated ConstructorDefinitionStatement constructors = 5;
   repeated FunctionDefinitionStatement methods = 6;
   VariableValueType parentClassType = 7;
   Position position = 8;
-}
-
-message PropertyDeclaration {
-  VariableType varType = 1;
-  string name = 2;
-  VariableValueType valueType = 3;
-  Expression value = 4;
 }
 
 message FunctionDefinitionStatement {
@@ -85,6 +79,7 @@ message Parameter {
   string name = 1;
   ParameterType type = 2;
   VariableValueType valueType = 3;
+  Position position = 4;
 }
 
 enum ParameterType {
