@@ -22,10 +22,11 @@ message Expression {
     InputExpression inputExpression = 15;
     OutputExpression outputExpression = 16;
     VarReferenceExpression varReferenceExpression = 17;
-    ParenthesisExpression parenthesysExpression = 18;
+    ParenthesisExpression parenthesisExpression = 18;
     FunctionCallExpression functionCallExpression = 19;
     ObjectPropertyReferenceExpression objectPropertyReferenceExpression = 20;
     ObjectMethodCallExpression objectMethodCallExpression = 21;
+    BinaryComparisonExpression binaryComparisonExpression = 22;
   }
 }
 
@@ -70,6 +71,13 @@ message BinaryLogicExpression {
   Expression left = 1;
   Expression right = 2;
   LogicOperand operand = 3;
+  Position position = 4;
+}
+
+message BinaryComparisonExpression {
+  Expression left = 1;
+  Expression right = 2;
+  ComparisonOperand operand = 3;
   Position position = 4;
 }
 
@@ -155,10 +163,13 @@ enum LogicOperand {
   AND = 0;
   OR = 1;
   NOT = 2;
-  EQUAL = 3;
-  LESS_THAN = 4;
-  LESS_THAN_OR_EQUAL = 5;
-  GREATER_THAN = 6;
-  GREATER_THAN_OR_EQUAL = 7;
-  NOT_EQUAL = 8;
+}
+
+enum ComparisonOperand {
+  EQUAL = 0;
+  LESS_THAN = 1;
+  LESS_THAN_OR_EQUAL = 2;
+  GREATER_THAN = 3;
+  GREATER_THAN_OR_EQUAL = 4;
+  NOT_EQUAL = 5;
 }
