@@ -73,6 +73,7 @@ message ConstructorDefinitionStatement {
 
 message ThisConstructorDefinition {
   repeated Expression parameters = 1;
+  Position position = 2;
 }
 
 message Parameter {
