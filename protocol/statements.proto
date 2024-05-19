@@ -28,6 +28,7 @@ message Statement {
     VariableDeclarationStatement varDeclarationStatement = 7;
     WhileDefinitionStatement whileDefinitionStatement = 8;
     ForDefinitionStatement forDefinitionStatement = 9;
+    FunctionDefinitionStatement functionDefinitionStatement = 10;
   }
 
 }
