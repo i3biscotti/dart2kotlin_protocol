@@ -36,7 +36,7 @@ message Statement {
 message AssignmentStatement {
   string name = 1;
   Expression value = 2;
-  Position position = 3;
+  optional Position position = 3;
 }
 
 enum  EncapsulationType {
@@ -52,7 +52,7 @@ message ClassDefinitionStatement {
   repeated ConstructorDefinitionStatement constructors = 5;
   repeated FunctionDefinitionStatement methods = 6;
   VariableValueType parentClassType = 7;
-  Position position = 8;
+  optional Position position = 8;
 }
 
 message FunctionDefinitionStatement {
@@ -60,7 +60,7 @@ message FunctionDefinitionStatement {
   repeated Parameter parameters = 2;
   VariableValueType returnType = 3;
   repeated Statement statements = 4;
-  Position position = 5;
+  optional Position position = 5;
 }
 
 message ConstructorDefinitionStatement {
@@ -69,19 +69,19 @@ message ConstructorDefinitionStatement {
   repeated Parameter parameters = 3;
   repeated Statement body = 4;
   ThisConstructorDefinition thisConstructor = 5;
-  Position position = 6;
+  optional Position position = 6;
 }
 
 message ThisConstructorDefinition {
   repeated Expression parameters = 1;
-  Position position = 2;
+  optional Position position = 2;
 }
 
 message Parameter {
   string name = 1;
   ParameterType type = 2;
   VariableValueType valueType = 3;
-  Position position = 4;
+  optional Position position = 4;
 }
 
 enum ParameterType {
@@ -92,14 +92,14 @@ enum ParameterType {
 
 message ExpressionDefinitionStatement {
   Expression value = 1;
-  Position position = 2;
+  optional Position position = 2;
 }
 
 message IfDefinitionStatement {
   IfBlock ifBlock = 1;
   repeated IfBlock elseIfBlocks = 2;
   IfBlock elseBlock = 3;
-  Position position = 4;
+  optional Position position = 4;
 }
 
 enum BlockType {
@@ -112,13 +112,13 @@ message IfBlock {
   Expression condition = 1;
   repeated Statement statements = 2;
   BlockType blockType = 3;
-  Position position = 4;
+  optional Position position = 4;
 }
 
 message WhileDefinitionStatement {
   Expression condition = 1;
   repeated Statement statements = 2;
-  Position position = 3;
+  optional Position position = 3;
 }
 
 message ForInitOrIncrementStatement {
@@ -134,24 +134,24 @@ message VarDeclarationForStatement {
   string name = 2;
   VariableValueType valueType = 3;
   Expression value = 4;
-  Position position = 5;
+  optional Position position = 5;
 }
 
 message AssignmentForStatement {
   string name = 1;
   Expression value = 2;
-  Position position = 3;
+  optional Position position = 3;
 }
 
 message ExpressionForStatement {
   Expression value = 1;
-  Position position = 2;
+  optional Position position = 2;
 }
 
 message ForDefinitionStatement {
   ForCondition forCondition = 1;
   repeated Statement statements = 2;
-  Position position = 3;
+  optional Position position = 3;
 }
 
 message ForCondition {
@@ -165,32 +165,32 @@ message StandardForCondition {
   ForInitOrIncrementStatement initStatement = 1;
   Expression controlExpression = 2;
   ForInitOrIncrementStatement incrementStatement = 3;
-  Position position = 4;
+  optional Position position = 4;
 }
 
 message ForEachCondition {
   ItemDefinition itemDefinition = 1;
   Expression expression = 2;
-  Position position = 3;
+  optional Position position = 3;
 }
 
 message ItemDefinition {
   VariableType varType = 1;
   string name = 2;
   VariableValueType valueType = 3;
-  Position position = 4;
+  optional Position position = 4;
 }
 
 message ObjectPropertyAssignmentStatement {
   string objectName = 1;
   string propertyName = 2;
   Expression value = 3;
-  Position position = 4;
+  optional Position position = 4;
 }
 
 message ReturnStatement {
   Expression value = 1;
-  Position position = 2;
+  optional Position position = 2;
 }
 
 message VariableDeclarationStatement {
@@ -198,5 +198,5 @@ message VariableDeclarationStatement {
   string name = 2;
   VariableValueType valueType = 3;
   Expression value = 4;
-  Position position = 5;
+  optional Position position = 5;
 }
