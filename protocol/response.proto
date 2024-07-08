@@ -5,9 +5,10 @@ package protocol;
 import "base.proto";
 import "position.proto";
 
-message AstResponse{
-  ProgramFile program = 1;
-  repeated LanguageError errors = 2;
+message GenerateAstResponse{
+  bool success = 1;
+  ProgramFile ast = 2;
+  repeated LanguageError errors = 3;
 }
 
 message LanguageError{
@@ -15,7 +16,8 @@ message LanguageError{
   Point position = 2;
 }
 
-message TranspileResponse{
-  string code = 1;
-  repeated LanguageError errors = 2;
+message GenerateCodeResponse{
+  bool success = 1;
+  string code = 2;
+  repeated LanguageError errors = 3;
 }

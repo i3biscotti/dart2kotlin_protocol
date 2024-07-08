@@ -4,10 +4,10 @@ package protocol;
 
 import "base.proto";
 
-message AstRequest{
+message GenerateAstRequest{
     string code = 1;
 }
 
-message TranspileRequest{
-    protocol.ProgramFile program = 1;
+message GenerateCodeRequest{
+    protocol.ProgramFile ast = 1;
 }
